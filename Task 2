@@ -1,0 +1,49 @@
+
+void move_forwards() {
+  OnFwd(OUT_AC, 90);
+}
+
+void move_backwards() {
+  OnRev(OUT_AC, 90);
+}
+
+void move_left() {
+  OnFwd(OUT_A, 50);
+}
+
+void move_right() {
+  OnFwd(OUT_C, 50);
+}
+
+
+task main() {
+  int x;
+  SetSensorSound(IN_2);
+  SetSensorLight(IN_1);
+  my:
+  until(Sensor(IN_2) > 94);
+  while(true) {
+               if(Sensor(IN_1) >= 40) {
+               move_forwards();
+              }
+              if(Sensor(IN_1) < 40){
+              move_backwards();
+              Wait(500);
+              x = Random(2);
+              switch(x)
+                       {
+                        case 0: move_right();
+                                Wait(300);
+                                break;
+                        case 1: move_left();
+                                Wait(300);
+                                break;
+                       }
+              }
+              if(Sensor(IN_2) > 93){
+              Off(OUT_AC);
+              goto my;}
+
+              }
+
+}
